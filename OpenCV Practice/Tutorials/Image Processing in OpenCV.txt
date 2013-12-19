@@ -1,0 +1,39 @@
+Resizing using scaling:
+cv2.INTER_AREA for shrinking and cv2.INTER_CUBIC or cv2.INTER_LINEAR for zooming. 
+
+	img = cv2.imread('messi5.jpg')
+	
+	res = cv2.resize(img, None, fx=2, fy = 2, interpolation = cv2.INTER-CUBIC)
+	
+or
+	height, width = img.shape[:2]
+	res = cv2.resize(img,(2*width, 2*hight), interpolation = cv2.INTER_CUBIC)
+	
+Simple Thresholding
+Here, the matter is straight forward. If pixel value is greater than a threshold value, it
+ is assigned one value (may be white), else it is assigned another value (may be black). 
+ The function used is ocv:pyfunction:threshold. First param is the source image, which 
+ should be a grayscale image. Second param is the threshold value which is used to classify
+ the pixel values. Third param is the maxVal which represents the value to be given if 
+ pixel value is more than (sometimes less than) the threshold value. OpenCV provides diff.
+ styles of thresholding and it decided by the fourth parameter of the function. 
+ Types:
+ 	cv2.THRESH_BINARY
+ 	cv2.THREH_BINARY_INV
+ 	cv2.THRESH_TRUNCO
+ 	cv2.THRESH_TOZERO
+ 	cvs.THRESH_TOZERO_INV
+ 	
+Adaptive Thresholding
+ Used for images with different lighting conditions in different areas. Equals different 
+ thresholds calculated for small regions of the image. 
+ 
+Adaptive: decided how thresholding value is calculated
+	threshold value is the mean of neighborhood area
+	cv2.ADAPTIVE_THRESH_MEAN_C
+	
+	threshold value is the weighted sume of neighborhood values where weights are a 
+	gaussian window. 
+	cv2.ADAPTIVE_THRESH_GAUSSIAN_C
+	
+Block Size: decides the size of neighborhood area

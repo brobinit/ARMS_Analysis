@@ -1,0 +1,59 @@
+#Image basics, such as how to read an image, display it, and save it back. 
+
+#Read an image
+"""Use function :ocv:func:imread to read an image. The image should be in the working 
+directory or a dull path of image should be given. Second argument is a flag which 
+specifies the way the image should be read"""
+
+#Loads a color image. Any transparency will be neglected. Is default flag.
+cv2.CV_LOAD_IMAGE_COLOR
+
+#Loads image in grayscale mode
+cv2.CV_LOAD_IMAGE_GRAYSCALE
+
+#Loads image as such including alpha channels
+cv2.CV_LOAD_IMAGE_UNCHANGED
+
+#ALTERNATELY can use 1, 0, -1 respectively instead of flags. Example, which is grayscale:
+img = cv2.imread('image.jpg',0)
+
+
+
+#Display an image
+"""Use function :ocv:func:imshow to display an image in a window automatically fits to the
+image size. First argument is window name which is a string. Second argument is the image. 
+Can create as many as wish, but with different window names."""
+
+cv2.imshow('image', img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+""":ocv:func:waitKey is keyboard binding function. Timed in milliseconds. The function 
+waits for specific milliseconds for any keyboard event. If you press any key in that time,
+the program continues. If 0 is passed, it waits indefinitely for a key stroke. It can also
+be set to detect a specific key stroke, aka 'a'.
+
+:ocv:func:destrowAllWindows simply destroys all the windows we created. If you want to 
+destroy any specific windows, use :ocv:func:destroyWindow where you pass the exact window 
+name as the argument. 
+
+There is a special case where you can already create a window and load image to it later.
+In that case, you can specify whether window is resizable or not. Done with function
+ocv:func:namedWindow. By default, the flag is cv2.WINDOW_AUTOSIZE, but can specify flag to
+cv2.WINDOW_NORMAL which creates a resizeable window. Helpful when image is too large in 
+dimension and adding trackbar to windows. 
+
+Example:
+"""
+
+cv2.namedWindow('image',cv2.WINDOW_NORMAL)
+cv2.imshow('image',img)
+
+
+#Write an image
+"""Use function :ocv:func:imwrite to save an image. First argument is the file name, 
+second argument is the image you want to save. 
+"""
+cv2.imwrite('image.png', img)
+
+

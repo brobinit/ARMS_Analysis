@@ -1,0 +1,36 @@
+import cv
+#imports the functions from opencv so that your program can use them
+
+cv.NamedWindow('a_window', cv.CV_WINDOW_AUTOSIZE)
+#creates a window to contain the image. a_window is the identifier, and it is told to autosize
+
+image=cv.LoadImage('picture.png', cv.CV_LOAD_IMAGE_COLOR)
+#this function loads the image fromthe same directory. Can be modified to reference folders.
+#Second argument is the format of the image when it has been loaded.
+#Alternatives: CV_LOAD_IMAGE_GREYSCALE and CV_LOAD_IMAGE_UNCHAINED
+
+font = cv.InitFont(cv.CV_FONT_HERSHEY_SIMPLEX, 1, 1, 0, 3, 8)
+#font type is created so that opencv can write to the image in a way you specify. Here:
+    #First argument: font type cv.CV_FONT_HERSHEY_SIMPLEX
+    #vertical scale of the font which affects how tall the text is
+    #horizontal scale affects the width of the characters in the text.
+    #sheer value to the letters slope(0-1) 1 is 45 degrees from the vertical
+    #character thickness (3) makes textbold or not
+    #line type (only 3 types supported)
+
+cv.PutText(frame, "Hello World", (5,20),font, 255)
+#puttext function adds the text to the frame. arguments consist of:
+    #location to be written to (image)
+    #text to be written (hello world)
+    #coordinates within the image to write the text
+    #fron that was proviously initialised
+    #color (R,G,B)
+
+cv.ShowImage('a_window', image)
+#Displays the image in the window that was initialised at the beginning
+
+cv.WaitKey(10000)
+#used here to allow time for the image to be displayed before the program terminates
+
+cv.SaveImage('image.png', image)
+#saves a copy of the image with the writing on it. Saves as the specified file name and file type.

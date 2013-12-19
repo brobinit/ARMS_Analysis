@@ -1,0 +1,106 @@
+Basic operations on images. 
+
+Accessing and modifying pixel values
+Load an image: 
+	import cv2
+	import numpy as np
+	img = cv2.imread('messi5.jpg')
+	
+You can access a pixel value by its row and column coordinates. For BGR image, it returns
+ an array of Blue, Green, Red values. For Grayscale image, just corresponding intensity is
+ returned. 
+ 
+ 	>>>px = img[100, 100]
+ 	>>>print px
+ 	[157 166 200]
+ 	
+ 	#accessing only blue pixel
+ 	>>>blue = im[100, 100, 0]
+ 	>>>print blue
+ 	157
+ 	
+You can modify the fixed values also the same way
+	>>>img[100,100] = [255, 255, 255]
+	>>>print img[100,100]
+	[255 255 255]
+	
+Warning: Numpy is a optimized library for fast array calculations. So simply accessing 
+each and every pixel value and modifying it will be very slow and is discouraged. 
+
+Note: Above mentioned method is normall used for selecting a region of array, say first 5 
+rows and last 3 columns like that. For individual pixel access, Numpy array methods, 
+array.item() and array.itemset() is considered to be better. But it always returns a 
+scalar. So if you want to access all B, G, R values, you need to call array.item() 
+separately for all. 
+
+Better pixel accessing and editing method:
+	#accessing red value
+	>>>img.item(10, 10, 2)
+	59
+	
+	#modifying red value
+	>>>img.itemset((10,10,2)100)
+	>>>img.item(10,10,2)
+	100
+	
+	
+Accessing Image Properties
+Image properties include number of rows, columns and channels, type of image data, number 
+of pixels, etc.
+
+Shape of image is accessed by img.shape. It returns a tuple of number of rows, columns, 
+and channels (if image is color).
+
+	>>>print img.shape
+	(342, 548, 3)
+	
+Note: If image is grayscale, tuple returned contains only number of rows and columns. So 
+it is a good method to check if loaded image is grayscale or color image. 
+
+Total number of pixels is accessed by img.size
+	>>>print img.size
+	
+Image datatype is obtained by img.dtype
+	>>>print img.dtype
+	uint8
+	
+Note: img.dtype is very important while debugging because a large number of errors in 
+OpenCV-Pyton code is caused by datatype.
+
+
+Image ROI
+Sometimes you will have to play with a certain region of images. For eg, eye detection in 
+images, first face is obtained, we select the face region alone and search for eyes inside
+ it instead of searching whole image. It improved accuracy and performance. 
+ 
+ ROI is again obtained using Numpy indexing. Here we are selecting the ball and coying it 
+ to another region in the image. 
+ 	>>>ball = img[280:340, 330:390]
+ 	>>>img[273:333, 100:160] = ball
+ 	
+ 	
+
+Splitting and Merging Image Channels
+Sometimes you will need to work separately on BGR channels of image. Then you need to
+split the BGR to single planes. Or another time, you may need to join these individual 
+channels to BGR image. Done simply by:
+	>>>b,g,r = cv2.split(img)
+	>>>img = cv2.merge((b,g,r))
+	
+Or
+	>>>b = img[:,:,0]
+	
+Suppose you want to make all the red pixels to zero, you need not split like this and put 
+it equal to zero. Can simply use Numpy indexing, which is faster.
+	>>>img[:,:,2] = 0
+
+Warning: cv2.split() is a costly operation in terms of time. Use sparingly, otherwise use
+ Numpy indexing.
+ 
+ To test performance:
+ In iPython: 
+ 	%timeit
+ 	followed by the operation you want to time. 
+ 	
+ cv2.getTickCount
+ cv2.getTickFrequency
