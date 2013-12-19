@@ -20,7 +20,7 @@ imgray = cv2.cvtColor(im,cv2.COLOR_BGR2GRAY)
 
 #Sets image threshold
 tlow = 40
-thigh = tlow * 4
+thigh = tlow * 3
 
 
 #canny edge detection
